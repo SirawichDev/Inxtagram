@@ -5,6 +5,7 @@ import 'package:bloc_medium_scale_project/screens/screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           title: 'Inxtagram',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            textTheme: GoogleFonts.sourceSansProTextTheme(),
               primarySwatch: Colors.blue,
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
