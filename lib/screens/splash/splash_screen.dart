@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
-        builder: (_) => SplashScreen());
+        builder: (_) => const SplashScreen());
   }
 
   @override
@@ -21,11 +21,10 @@ class SplashScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          print(state);
           if (state.status == AuthStatus.unauthenticated) {
-              Navigator.of(context).pushNamed(LoginScreen.routeName);
+            Navigator.of(context).pushNamed(LoginScreen.routeName);
           } else if (state.status == AuthStatus.authenticated) {
-              Navigator.of(context).pushNamed(NavScreen.routeName);
+            Navigator.of(context).pushNamed(NavScreen.routeName);
           }
         },
         child: const Scaffold(
