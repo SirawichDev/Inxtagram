@@ -1,5 +1,6 @@
 import 'package:bloc_medium_scale_project/screens/nav/nav_screen.dart';
 import 'package:bloc_medium_scale_project/screens/screens.dart';
+import 'package:bloc_medium_scale_project/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomRouter {
@@ -17,6 +18,8 @@ class CustomRouter {
         return LoginScreen.route();
       case NavScreen.routeName:
         return NavScreen.route();
+      case SignupScreen.routeName:
+        return SignupScreen.route();
       default:
         return _errorRoute();
     }
