@@ -43,7 +43,6 @@ class LoginScreenStateful extends State<LoginScreen> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
           if (state.status == LoginStatus.error) {
-            print('error got!');
             showDialog(
                 context: (context),
                 builder: (context) => AlertDialog(
@@ -52,7 +51,7 @@ class LoginScreenStateful extends State<LoginScreen> {
           }
         }, builder: (context, state) {
           return Scaffold(
-              resizeToAvoidBottomInset: true,
+              resizeToAvoidBottomInset: false,
               body: Center(
                 child: Card(
                   shadowColor: Colors.white,
@@ -161,11 +160,11 @@ class LoginScreenStateful extends State<LoginScreen> {
                                 'Forgot password?',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                    letterSpacing: .15,
-                                    fontSize: 12.0,
-                                    color: Color.fromRGBO(55, 151, 239, 1),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'SF Pro Text'),
+                                  letterSpacing: .15,
+                                  fontSize: 12.0,
+                                  color: Color.fromRGBO(55, 151, 239, 1),
+                                  fontWeight: FontWeight.w500,
+                                ),
                               )
                             ],
                           ),
@@ -177,18 +176,117 @@ class LoginScreenStateful extends State<LoginScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: const Color.fromRGBO(5, 151, 239, 1),
+                                  primary: context
+                                          .read<LoginCubit>()
+                                          .isFulFieldForm
+                                      ? const Color.fromRGBO(55, 151, 239, 1)
+                                      : Colors.grey.shade200,
+                                  shadowColor: Colors.transparent,
                                   side: const BorderSide(
                                       color: Colors.transparent),
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5))),
                               onPressed: () {
-                                _submitForm(context,
-                                    state.status == LoginStatus.submitting);
+                                context.read<LoginCubit>().isFulFieldForm
+                                    ? _submitForm(context,
+                                        state.status == LoginStatus.submitting)
+                                    : null;
                               },
                               child: const Text('Login'),
                             ),
                           ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                  label: const Text(
+                                    'Log in with Facebook',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(55, 151, 239, 1)),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.facebook,
+                                    color: Color.fromRGBO(55, 151, 239, 1),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      side: const BorderSide(
+                                          color: Colors.transparent),
+                                      shadowColor: Colors.transparent),
+                                  onPressed: () {})
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 10.0, right: 20.0),
+                                    child: const Divider(
+                                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                                      height: 20,
+                                    )),
+                              ),
+                              const Text(
+                                "OR",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Color.fromRGBO(0, 0, 0, 0.4)),
+                              ),
+                              Expanded(
+                                child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20.0, right: 10.0),
+                                    child: const Divider(
+                                      color: Color.fromRGBO(0, 0, 0, 0.2),
+                                      height: 20,
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Don’t have an account ?',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 0, 0.4)),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.zero,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        backgroundColor: Colors.white,
+                                        side: const BorderSide(
+                                            color: Colors.transparent),
+                                        shadowColor: Colors.transparent),
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => const AlertDialog(
+                                                content: Text('fff'),
+                                              ));
+                                    },
+                                    child: const Text(
+                                      'Sign up.',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(55, 151, 239, 1),
+                                      ),
+                                    )),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
