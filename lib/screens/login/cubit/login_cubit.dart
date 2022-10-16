@@ -26,12 +26,13 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(status: LoginStatus.submitting));
     try {
       // auth repo
-      _authRepository.logInWithEmailAndPassword(
+      await _authRepository.logInWithEmailAndPassword(
           email: state.email, password: state.password);
       emit(state.copyWith(status: LoginStatus.success));
     } on Failure catch (err) {
-      print('error get');
       emit(state.copyWith(failure: err, status: LoginStatus.error));
     }
   }
+
+  bool get isFulFieldForm => state.isFormValid;
 }
