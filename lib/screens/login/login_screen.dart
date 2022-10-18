@@ -1,7 +1,6 @@
 import 'package:bloc_medium_scale_project/repositories/auth/auth_repository.dart';
 import 'package:bloc_medium_scale_project/screens/login/cubit/login_cubit.dart';
-import 'package:bloc_medium_scale_project/screens/nav/nav_screen.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:bloc_medium_scale_project/screens/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -266,18 +265,14 @@ class LoginScreenStateful extends State<LoginScreen> {
                                 padding: EdgeInsets.zero,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
                                         backgroundColor: Colors.white,
                                         side: const BorderSide(
                                             color: Colors.transparent),
                                         shadowColor: Colors.transparent),
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => const AlertDialog(
-                                                content: Text('fff'),
-                                              ));
-                                    },
+                                    onPressed: () => Navigator.of(context)
+                                        .pushNamed(SignupScreen.routeName),
                                     child: const Text(
                                       'Sign up.',
                                       style: TextStyle(
